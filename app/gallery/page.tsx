@@ -19,45 +19,27 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      console.log(
-        "fetching photos with API key",
-        process.env.NEXT_PUBLIC_PEXELS_API_KEY
-      );
-      try {
-        const client = createClient(
-          process.env.NEXT_PUBLIC_PEXELS_API_KEY || ""
-        );
-        const response = await client.photos.search({
-          query: "ai generated art",
-          per_page: 80,
-        });
+ useEffect(() => {
+  const fetchPhotos = async () => {
+    try {
+      const res = await fetch('/api/photos');
+      console.log(res);
+      
+      const data = await res.json();
 
-        if ("error" in response) {
-          throw new Error(response.error);
-        }
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch');
 
-        const formattedPhotos = response.photos.map((photo) => ({
-          id: photo.id,
-          title: photo.alt || "Untitled",
-          description: photo.alt || "No description available",
-          image: photo.src.large2x,
-          tags: ["Abstract", "Digital", "Art"],
-          photographer: photo.photographer,
-          photographerUrl: photo.photographer_url,
-        }));
+      setPhotos(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        setPhotos(formattedPhotos);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
+  fetchPhotos();
+}, []);
 
-    fetchPhotos();
-  }, []);
 
   if (loading) {
     return (
@@ -103,10 +85,14 @@ export default function Gallery() {
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105"
             >
               <div className="relative aspect-square">
-                <img
+                <Image
+                  width={500}
+                  height={500}
+                  alt="alt-name"
                   src={photo.image}
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  blurDataURL="1.png"
                 />
               </div>
               <div className="p-6">
