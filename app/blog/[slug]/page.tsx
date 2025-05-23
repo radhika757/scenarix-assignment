@@ -1,7 +1,8 @@
 "use client";
 
+import { blogPosts } from "@/app/data/dummy-data";
 import Image from "next/image";
-import { blogPosts } from "../page";
+
 import { notFound } from "next/navigation";
 import { useState } from "react";
 
