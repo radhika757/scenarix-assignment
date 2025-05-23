@@ -13,7 +13,6 @@ interface Photo {
   photographerUrl: string;
 }
 
-// Memoized card component to prevent unnecessary re-renders
 const PhotoCard = memo(({ photo }: { photo: Photo }) => {
   return (
     <div
@@ -104,7 +103,6 @@ export default function Gallery() {
     fetchPhotos();
   }, [fetchPhotos]);
 
-  // Memoize the visible photos and photo grid
   const visiblePhotos = useMemo(() => 
     photos.slice(0, visibleCount), 
     [photos, visibleCount]
