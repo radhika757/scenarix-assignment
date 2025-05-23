@@ -1,5 +1,4 @@
 import BlogPostCard from "../components/BlogPostCard";
-import Newsletter from "../components/Newsletter";
 
 interface BlogPostCardProps {
   post: {
@@ -26,8 +25,6 @@ export default function Blog({ post }: BlogPostCardProps) {
             <BlogPostCard key={index} post={post} />
           ))}
         </div>
-
-        <Newsletter />
       </div>
     </div>
   );

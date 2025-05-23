@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppBar from "./components/AppBar";
+import Newsletter from "./components/Newsletter";
 
 export const metadata: Metadata = {
   title: "MagicMoments - AI Art Generator for Creatives",
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-white dark:bg-gray-900">
         <AppBar />
         <main className="flex min-h-screen flex-col ">{children}</main>
+        <Newsletter />
       </body>
     </html>
   );

@@ -1,6 +1,16 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Gallery() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate image loading time
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
@@ -13,14 +23,18 @@ export default function Gallery() {
               key={num}
               className="relative aspect-square overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow"
             >
-              <Image
-                alt="alt-name"
-                src={`/${num}.png`}
-                className="object-cover hover:scale-105 transition-transform duration-300"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                width={500}
-                height={500}
-              />
+              {loading ? (
+                <div className="w-full h-full bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg" />
+              ) : (
+                <Image
+                  alt="alt-name"
+                  src={`/${num}.png`}
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  width={500}
+                  height={500}
+                />
+              )}
             </div>
           ))}
         </div>
