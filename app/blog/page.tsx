@@ -1,7 +1,18 @@
 import BlogPostCard from "../components/BlogPostCard";
 import Newsletter from "../components/Newsletter";
 
-export default function Blog() {
+interface BlogPostCardProps {
+  post: {
+    title: string;
+    excerpt: string;
+    date: string;
+    readTime: number;
+    image: string;
+    link: string;
+  };
+}
+
+export default function Blog({ post }: BlogPostCardProps) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
       <div className="container mx-auto px-4">
@@ -22,7 +33,7 @@ export default function Blog() {
   );
 }
 
-const blogPosts = [
+export const blogPosts = [
   {
     title: "The Future of AI Art Generation",
     excerpt:
