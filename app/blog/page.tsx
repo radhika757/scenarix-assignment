@@ -1,18 +1,7 @@
 import BlogPostCard from "../components/BlogPostCard";
 import { blogPosts } from "../data/dummy-data";
 
-interface BlogPostCardProps {
-  post: {
-    title: string;
-    excerpt: string;
-    date: string;
-    readTime: number;
-    image: string;
-    link: string;
-  };
-}
-
-export default function Blog({ post }: BlogPostCardProps) {
+export default function Blog() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
       <div className="container mx-auto px-4">
@@ -30,4 +19,3 @@ export default function Blog({ post }: BlogPostCardProps) {
     </div>
   );
 }
-
